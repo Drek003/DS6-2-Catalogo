@@ -39,7 +39,7 @@ Aplicación web móvil que permite gestionar un catálogo completo de productos 
 
 - **Frontend**: HTML5, CSS3, JavaScript, Bootstrap 5
 - **Backend**: PHP 8+
-- **Base de Datos**: MySQL/MariaDB
+- **Base de Datos**: MySQL XAMPP
 - **Arquitectura**: MVC (Modelo-Vista-Controlador)
 
 ## Estructura del Proyecto
