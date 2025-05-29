@@ -10,19 +10,13 @@
 
             <ul class="nav-menu">
                 <li class="nav-item">
-                    <a href="#dashboard" class="nav-link active">
-                        <i class="fas fa-home"></i>
-                        DASHBOARD
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a href="#products" class="nav-link">
                         <i class="fas fa-box"></i>
                         PRODUCTOS
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#categories" class="nav-link">
+                    <a href="../categories/index.php" class="nav-link">
                         <i class="fas fa-tags"></i>
                         CATEGORÍAS
                     </a>
