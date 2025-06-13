@@ -1,68 +1,118 @@
+<?php
+require_once '../../config/config.php';
+require_once '../../config/database.php';
+
+$error = '';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = cleanInput($_POST['username']);
+    $password = $_POST['password'];
+    
+    if (!empty($username) && !empty($password)) {
+        $database = new Database();
+        $db = $database->getConnection();
+        
+        $query = "SELECT id, username, email, password, role FROM users WHERE username = ? OR email = ?";
+        $stmt = $db->prepare($query);
+        $stmt->execute([$username, $username]);
+        
+        if ($user = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            if ($password === $user['password']) {
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['username'] = $user['username'];
+                $_SESSION['email'] = $user['email'];
+                $_SESSION['role'] = $user['role'];
+                
+                redirect('../../index.php');
+            } else {
+                $error = 'Credenciales incorrectas';
+            }
+        } else {
+            $error = 'Usuario no encontrado';
+        }
+    } else {
+        $error = 'Por favor complete todos los campos';
+    }
+}
+?>
+
 <!DOCTYPE html>
-<html lang="en">
-<head>  <meta charset="UTF-8">  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CodeCorp Login</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="../../assets/css/styles.css">
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Catálogo de Productos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body>
-  <div class="background-circle"></div>
-  
-  <div class="container">
-    <div class="login-container">      <div class="login-sidebar">
-        <div class="brand">
-          <div class="logo">
-            <i class="bi bi-cart"></i>
-          </div>
-          <h1>CodeCorp</h1>
-        </div>
-        <div class="user-profile">
-          <div class="avatar-container">
-            <div class="avatar-placeholder">
-              <i class="bi bi-person-fill"></i>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="card login-card">
+                    <div class="card-body p-5">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-store fa-3x text-primary mb-3"></i>
+                            <h3>Catálogo de Productos</h3>
+                            <p class="text-muted">Inicia sesión para continuar</p>
+                        </div>
+                        
+                        <?php if ($error): ?>
+                        <div class="alert alert-danger">
+                            <i class="fas fa-exclamation-triangle"></i> <?php echo $error; ?>
+                        </div>
+                        <?php endif; ?>
+                        
+                        <form method="POST">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Usuario o Email</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-user"></i>
+                                    </span>
+                                    <input type="text" class="form-control" id="username" name="username" required>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="password" class="form-label">Contraseña</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+                                    <input type="password" class="form-control" id="password" name="password" required>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary w-100 mb-3">
+                                <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                            </button>
+                        </form>
+                        
+                        <div class="text-center">
+                            <small class="text-muted">
+                                Demo: admin/password o consultor/password
+                            </small>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <p class="welcome-text">Bienvenido</p>
         </div>
-        <div class="sidebar-footer">
-          <div class="world-map"></div>
-          <p class="copyright">© 2025 CodeCorp</p>
-        </div>
-      </div>
-      
-      <div class="login-content">
-        <div class="login-header">
-          <h2>Log In</h2>
-          <p>Ingrese sus credenciales de acceso</p>
-        </div>
-        
-        <form id="loginForm" class="login-form">          <div class="form-group">
-            <label for="user">Usuario</label>
-            <div class="input-container">
-              <i class="bi bi-envelope-fill"></i>
-              <input type="user" id="user" name="user" placeholder="Ingrese su Usuario" required>
-              <div class="validation-icon"></div>
-            </div>
-            <small class="error-message"></small>
-          </div>
-          
-          <div class="form-group">
-            <label for="password">Contraseña</label>
-            <div class="input-container">
-              <i class="bi bi-lock-fill"></i>
-              <input type="password" id="password" name="password" placeholder="Ingrese su contraseña" required>
-              <button type="button" class="toggle-password">
-              </button>
-              <div class="validation-icon"></div>
-            </div>
-            <small class="error-message"></small>
-          </div>
-            <button type="submit" id="loginButton" class="login-button">
-            <span>Ingresar</span>
-            <i class="bi bi-arrow-right"></i>
-          </button>
-        </form>  
-<script src="../../assets/js/app.js"></script>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
