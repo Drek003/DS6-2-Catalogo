@@ -29,66 +29,34 @@ if (!$category) {
 
 $error = '';
 $success = '';
+$image_url = '';
 
 // Procesar el formulario cuando se envía
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Validar y limpiar datos
     $name = cleanInput($_POST['name']);
     $description = cleanInput($_POST['description']);
+    $image_url = isset($_POST['image_url']) ? cleanInput($_POST['image_url']) : '';
     
     // Validar nombre (obligatorio)
     if (empty($name)) {
         $error = 'El nombre de la categoría es obligatorio';
+    } else if (empty($image_url)) {
+        $error = 'La URL de la imagen es obligatoria';
     } else {
-        // Procesar imagen si se ha subido una nueva
-        $image_name = $category['image']; // Mantener la imagen actual por defecto
-        
-        if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
-            $allowed = ['jpg', 'jpeg', 'png', 'gif'];
-            $filename = $_FILES['image']['name'];
-            $file_ext = pathinfo($filename, PATHINFO_EXTENSION);
+        // Guardar solo la URL de la imagen
+        $query = "UPDATE categories SET name = ?, description = ?, image = ? WHERE id = ?";
+        $stmt = $db->prepare($query);
+        if ($stmt->execute([$name, $description, $image_url, $category_id])) {
+            $success = 'Categoría actualizada correctamente';
             
-            // Verificar extensión
-            if (!in_array(strtolower($file_ext), $allowed)) {
-                $error = 'Formato de imagen no permitido. Use: jpg, jpeg, png o gif';
-            } else {
-                // Generar nombre único para la imagen
-                $image_name = uniqid() . '.' . $file_ext;
-                $target_path = "../../assets/images/categories/" . $image_name;
-                
-                // Crear directorio si no existe
-                if (!file_exists("../../assets/images/categories/")) {
-                    mkdir("../../assets/images/categories/", 0777, true);
-                }
-                
-                // Mover archivo subido
-                if (!move_uploaded_file($_FILES['image']['tmp_name'], $target_path)) {
-                    $error = 'Error al subir la imagen';
-                    $image_name = $category['image']; // Mantener la imagen anterior si hay error
-                } else {
-                    // Eliminar imagen anterior si existe
-                    if ($category['image'] && file_exists("../../assets/images/categories/" . $category['image'])) {
-                        unlink("../../assets/images/categories/" . $category['image']);
-                    }
-                }
-            }
-        }
-        
-        // Si no hay errores, actualizar en la base de datos
-        if (empty($error)) {
-            $query = "UPDATE categories SET name = ?, description = ?, image = ? WHERE id = ?";
-            $stmt = $db->prepare($query);
-            
-            if ($stmt->execute([$name, $description, $image_name, $category_id])) {
-                $success = 'Categoría actualizada correctamente';
-                
-                // Actualizar datos de la categoría para mostrar los cambios
-                $category['name'] = $name;
-                $category['description'] = $description;
-                $category['image'] = $image_name;
-            } else {
-                $error = 'Error al actualizar la categoría';
-            }
+            // Actualizar datos de la categoría para mostrar los cambios
+            $category['name'] = $name;
+            $category['description'] = $description;
+            $category['image'] = $image_url;
+            $image_url = '';
+        } else {
+            $error = 'Error al actualizar la categoría';
         }
     }
 }
@@ -132,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                         <?php endif; ?>
                         
-                        <form id="categoryForm" method="POST" enctype="multipart/form-data">
+                        <form id="categoryForm" method="POST">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nombre de la Categoría *</label>
                                 <input type="text" class="form-control" id="name" name="name" 
@@ -145,27 +113,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                           rows="3"><?php echo htmlspecialchars($category['description']); ?></textarea>
                             </div>
                             
-                            <div class="mb-4">
-                                <label for="image" class="form-label">Imagen de la Categoría</label>
-                                
-                                <?php if ($category['image']): ?>
-                                <div class="mb-2 text-center">
-                                    <p>Imagen actual:</p>
-                                    <img src="../../assets/images/categories/<?php echo $category['image']; ?>" 
-                                         class="img-fluid img-thumbnail" style="max-height: 200px;" 
-                                         alt="<?php echo htmlspecialchars($category['name']); ?>">
-                                </div>
-                                <?php endif; ?>
-                                
-                                <input type="file" class="form-control" id="image" name="image" 
-                                       accept="image/jpeg,image/png,image/gif" data-preview="imagePreview">
-                                <div class="form-text">Deje este campo vacío para mantener la imagen actual.</div>
-                                
-                                <div class="mt-2 text-center">
-                                    <img id="imagePreview" class="img-fluid img-thumbnail" 
-                                         style="max-height: 200px; display: none;" alt="Vista previa">
-                                </div>
+                            <div class="mb-3">
+                                <label for="image_url" class="form-label">URL de la Imagen *</label>
+                                <input type="url" class="form-control" id="image_url" name="image_url" placeholder="https://..." value="<?php echo htmlspecialchars($category['image']); ?>" required>
+                                <div class="form-text">Ingresa la URL de la imagen de la categoría.</div>
                             </div>
+                            
+                            <?php if ($category['image']): ?>
+                            <div class="mb-4 text-center">
+                                <p>Imagen actual:</p>
+                                <img src="<?php echo htmlspecialchars($category['image']); ?>" 
+                                     class="img-fluid img-thumbnail" style="max-height: 200px;" 
+                                     alt="<?php echo htmlspecialchars($category['name']); ?>">
+                            </div>
+                            <?php endif; ?>
                             
                             <div class="d-flex justify-content-between">
                                 <a href="index.php" class="btn btn-secondary">
@@ -185,20 +146,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../assets/js/app.js"></script>
     <script>
-        // Vista previa de la imagen
-        document.getElementById('image').addEventListener('change', function() {
-            const file = this.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const preview = document.getElementById('imagePreview');
-                    preview.src = e.target.result;
-                    preview.style.display = 'block';
-                }
-                reader.readAsDataURL(file);
-            }
-        });
-        
         // Validación del formulario
         document.getElementById('categoryForm').addEventListener('submit', function(e) {
             const nameInput = document.getElementById('name');
