@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/WEB/DS6-2-Catalogo/index.php">
+        <a class="navbar-brand" href="/DS6-2-Catalogo/index.php">
             <i class="fas fa-store"></i> Catálogo
         </a>
         
@@ -11,17 +11,17 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/WEB/DS6-2-Catalogo/index.php">
+                    <a class="nav-link" href="/DS6-2-Catalogo/index.php">
                         <i class="fas fa-home"></i> Inicio
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/WEB/DS6-2-Catalogo/views/categories/index.php">
+                    <a class="nav-link" href="/DS6-2-Catalogo/views/categories/index.php">
                         <i class="fas fa-tags"></i> Categorías
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/WEB/DS6-2-Catalogo/views/products/index.php">
+                    <a class="nav-link" href="/DS6-2-Catalogo/views/products/index.php">
                         <i class="fas fa-box"></i> Productos
                     </a>
                 </li>
@@ -32,17 +32,17 @@
                         <i class="fas fa-cog"></i> Administración
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/WEB/DS6-2-Catalogo/views/categories/create.php">
+                        <li><a class="dropdown-item" href="/DS6-2-Catalogo/views/categories/create.php">
                             <i class="fas fa-plus"></i> Nueva Categoría
                         </a></li>
-                        <li><a class="dropdown-item" href="/WEB/DS6-2-Catalogo/views/products/create.php">
+                        <li><a class="dropdown-item" href="/DS6-2-Catalogo/views/products/create.php">
                             <i class="fas fa-plus"></i> Nuevo Producto
                         </a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="/WEB/DS6-2-Catalogo/views/categories/index.php">
+                        <li><a class="dropdown-item" href="/DS6-2-Catalogo/views/categories/index.php">
                             <i class="fas fa-edit"></i> Gestionar Categorías
                         </a></li>
-                        <li><a class="dropdown-item" href="/WEB/DS6-2-Catalogo/views/products/index.php">
+                        <li><a class="dropdown-item" href="/DS6-2-Catalogo/views/products/index.php">
                             <i class="fas fa-edit"></i> Gestionar Productos
                         </a></li>
                     </ul>
@@ -68,7 +68,7 @@
                             <strong>Rol:</strong> <?php echo ucfirst($_SESSION['role']); ?>
                         </span></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="/WEB/DS6-2-Catalogo/views/auth/logout.php">
+                        <li><a class="dropdown-item" href="/DS6-2-Catalogo/views/auth/logout.php">
                             <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
                         </a></li>
                     </ul>
