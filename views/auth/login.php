@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="logo">
                         <i class="fas fa-store"></i>
                     </div>
-                    <h1>Catálogo</h1>
+                    <h1>CodeCorp</h1>
                 </div>
                 
                 <div class="user-profile">
