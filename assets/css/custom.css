@@ -119,53 +119,63 @@ body {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-light) 100%);
-    color: var(--white);
+    background: linear-gradient(135deg, var(--accent-color, #00d4aa) 0%, var(--primary-color, #1a1a2e) 100%) !important;
+    color: #fff !important;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
-.btn-primary:hover {
-    background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent-color) 100%);
-    color: var(--white);
+.btn-primary:hover, .btn-primary:focus {
+    background: linear-gradient(135deg, var(--accent-light, #00f5d4) 0%, var(--primary-color, #1a1a2e) 100%) !important;
+    color: #fff !important;
 }
 
 .btn-success {
-    background: linear-gradient(135deg, var(--success) 0%, #00e676 100%);
-    color: var(--white);
+    background: linear-gradient(135deg, var(--success, #00d4aa) 0%, var(--primary-color, #1a1a2e) 100%) !important;
+    color: #fff !important;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
-.btn-success:hover {
-    background: linear-gradient(135deg, #00b894 0%, var(--success) 100%);
-    color: var(--white);
+.btn-success:hover, .btn-success:focus {
+    background: linear-gradient(135deg, #00e676 0%, var(--primary-color, #1a1a2e) 100%) !important;
+    color: #fff !important;
 }
 
 .btn-danger {
-    background: linear-gradient(135deg, var(--error) 0%, #ff5252 100%);
-    color: var(--white);
+    background: linear-gradient(135deg, var(--error, #ff6b6b) 0%, var(--primary-color, #1a1a2e) 100%) !important;
+    color: #fff !important;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
-.btn-danger:hover {
-    background: linear-gradient(135deg, #d32f2f 0%, var(--error) 100%);
-    color: var(--white);
+.btn-danger:hover, .btn-danger:focus {
+    background: linear-gradient(135deg, #ff5252 0%, var(--primary-color, #1a1a2e) 100%) !important;
+    color: #fff !important;
 }
 
 .btn-info {
-    background: linear-gradient(135deg, var(--info) 0%, #26c6da 100%);
-    color: var(--white);
+    background: linear-gradient(135deg, var(--info, #4ecdc4) 0%, var(--primary-color, #1a1a2e) 100%) !important;
+    color: #fff !important;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
-.btn-info:hover {
-    background: linear-gradient(135deg, #0097a7 0%, var(--info) 100%);
-    color: var(--white);
+.btn-info:hover, .btn-info:focus {
+    background: linear-gradient(135deg, #26c6da 0%, var(--primary-color, #1a1a2e) 100%) !important;
+    color: #fff !important;
 }
 
 .btn-warning {
-    background: linear-gradient(135deg, var(--warning) 0%, #ffeb3b 100%);
-    color: var(--gray-900);
+    background: linear-gradient(135deg, var(--warning, #ffd93d) 0%, var(--primary-color, #1a1a2e) 100%) !important;
+    color: #212529 !important;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
-.btn-warning:hover {
-    background: linear-gradient(135deg, #f57f17 0%, var(--warning) 100%);
-    color: var(--gray-900);
+.btn-warning:hover, .btn-warning:focus {
+    background: linear-gradient(135deg, #ffeb3b 0%, var(--primary-color, #1a1a2e) 100%) !important;
+    color: #212529 !important;
 }
 
 /* Formularios */

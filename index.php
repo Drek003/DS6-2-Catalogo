@@ -43,6 +43,35 @@ $recent_products = $recent_stmt->fetchAll(PDO::FETCH_ASSOC);
     <link href="assets/css/custom.css" rel="stylesheet">
     <link href="assets/css/catg.css" rel="stylesheet">
     <link href="assets/css/bootstrap-dark.css" rel="stylesheet">
+    <style>
+        /* Mejorar contraste en las cards de estadísticas */
+        .card.bg-primary, .card.bg-success, .card.bg-info {
+            background: linear-gradient(135deg, var(--accent-color, #00d4aa) 0%, var(--primary-color, #1a1a2e) 100%) !important;
+            color: #fff !important;
+            border: none;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+        }
+        .card.bg-primary .card-body, .card.bg-success .card-body, .card.bg-info .card-body {
+            color: #fff !important;
+        }
+        .card.bg-primary .card-title, .card.bg-success .card-title, .card.bg-info .card-title,
+        .card.bg-primary p, .card.bg-success p, .card.bg-info p {
+            color: #fff !important;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.25);
+        }
+        .card.bg-primary .align-self-center i,
+        .card.bg-success .align-self-center i,
+        .card.bg-info .align-self-center i {
+            color: #fff !important;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.25);
+        }
+        .card.bg-info {
+            background: linear-gradient(135deg, var(--info, #4ecdc4) 0%, var(--primary-color, #1a1a2e) 100%) !important;
+        }
+        .card.bg-success {
+            background: linear-gradient(135deg, var(--success, #00d4aa) 0%, var(--primary-color, #1a1a2e) 100%) !important;
+        }
+    </style>
 </head>
 <body>
     <?php include 'includes/nav.php'; ?>
