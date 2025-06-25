@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-06-2025 a las 06:57:58
+-- Tiempo de generación: 25-06-2025 a las 04:31:32
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -122,7 +122,8 @@ INSERT INTO `products` (`id`, `name`, `description`, `price`, `image`, `category
 (48, 'Samsung Galaxy Watch 6', 'Smartwatch Android con pantalla AMOLED, Wear OS y sensores de salud', 329.99, 'https://images.samsung.com/sa_en/galaxy-watch6/feature/galaxy-watch6-kv-pc.jpg', 10, '2025-05-30 19:20:55'),
 (49, 'Garmin Forerunner 255', 'Reloj GPS para running con métricas avanzadas y autonomía de 14 días', 349.99, 'https://m.media-amazon.com/images/I/41oPOwZvB0L._SS400_.jpg', 10, '2025-05-30 19:20:55'),
 (50, 'Jabra Elite 85t', 'Earbuds inalámbricos con cancelación de ruido adaptativa y 31h de batería', 179.99, 'https://m.media-amazon.com/images/I/71-3C3aYveL.jpg', 10, '2025-05-30 19:20:55'),
-(51, 'ROG Xbox Ally | 1T', '¡Descubre la ROG Ally, tu puerta de entrada a la élite del gaming portátil! Con la potencia de un PC y la versatilidad de una consola, juega tus títulos favoritos de Xbox y más, donde sea y cuando sea. ¡Rendimiento inigualable en tus manos', 649.99, 'https://cms-assets.xboxservices.com/assets/8b/26/8b26b482-20a7-4182-a64a-c97f2a221f59.png?n=9856321_Hero-Gallery-0_V01-01_1400x800.png', 4, '2025-06-13 20:02:25');
+(51, 'ROG Xbox Ally | 1T', '¡Descubre la ROG Ally, tu puerta de entrada a la élite del gaming portátil! Con la potencia de un PC y la versatilidad de una consola, juega tus títulos favoritos de Xbox y más, donde sea y cuando sea. ¡Rendimiento inigualable en tus manos', 649.99, 'https://cms-assets.xboxservices.com/assets/8b/26/8b26b482-20a7-4182-a64a-c97f2a221f59.png?n=9856321_Hero-Gallery-0_V01-01_1400x800.png', 4, '2025-06-13 20:02:25'),
+(52, 'Galaxy S24 Fe', 'teléfono inteligente Android desbloqueado de 256 GB, cámara de alta resolución de 50 MP, batería de larga duración, pantalla de visualización más brillante', 700.00, 'https://m.media-amazon.com/images/I/51SG-FYxj7L._AC_SX679_.jpg', 2, '2025-06-25 02:15:08');
 
 -- --------------------------------------------------------
 
@@ -145,7 +146,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `role`, `created_at`) VALUES
 (1, 'admin_tech', 'admin@codecorp.com', 'admin123', 'admin', '2025-05-30 19:37:03'),
-(2, 'consultor_ventas', 'consultor@codecorp.com', 'con123', 'consultor', '2025-05-30 19:37:03');
+(2, 'consultor_V', 'consultor@codecorp.com', 'con123', 'consultor', '2025-05-30 19:37:03');
 
 --
 -- Índices para tablas volcadas
@@ -186,7 +187,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT de la tabla `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
