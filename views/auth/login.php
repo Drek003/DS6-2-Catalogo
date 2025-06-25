@@ -44,75 +44,127 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Login - Catálogo de Productos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-        }
-        .login-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-        }
-    </style>
+    <link href="../../assets/css/styles.css" rel="stylesheet">
+    <link href="../../assets/css/custom.css" rel="stylesheet">
+    <link href="../../assets/css/bootstrap-dark.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6 col-lg-4">
-                <div class="card login-card">
-                    <div class="card-body p-5">
-                        <div class="text-center mb-4">
-                            <i class="fas fa-store fa-3x text-primary mb-3"></i>
-                            <h3>Catálogo de Productos</h3>
-                            <p class="text-muted">Inicia sesión para continuar</p>
-                        </div>
-                        
-                        <?php if ($error): ?>
-                        <div class="alert alert-danger">
-                            <i class="fas fa-exclamation-triangle"></i> <?php echo $error; ?>
-                        </div>
-                        <?php endif; ?>
-                        
-                        <form method="POST">
-                            <div class="mb-3">
-                                <label for="username" class="form-label">Usuario o Email</label>
-                                <div class="input-group">
-                                    <span class="input-group-text">
-                                        <i class="fas fa-user"></i>
-                                    </span>
-                                    <input type="text" class="form-control" id="username" name="username" required>
-                                </div>
-                            </div>
-                            
-                            <div class="mb-4">
-                                <label for="password" class="form-label">Contraseña</label>
-                                <div class="input-group">
-                                    <span class="input-group-text">
-                                        <i class="fas fa-lock"></i>
-                                    </span>
-                                    <input type="password" class="form-control" id="password" name="password" required>
-                                </div>
-                            </div>
-                            
-                            <button type="submit" class="btn btn-primary w-100 mb-3">
-                                <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
-                            </button>
-                        </form>
-                        
-                        <div class="text-center">
-                            <small class="text-muted">
-                                Demo: admin/password o consultor/password
-                            </small>
+        <div class="login-container">
+            <!-- Sidebar -->
+            <div class="login-sidebar">
+                <div class="brand">
+                    <div class="logo">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <h1>Catálogo</h1>
+                </div>
+                
+                <div class="user-profile">
+                    <div class="avatar-container">
+                        <div class="avatar-placeholder">
+                            <i class="fas fa-user"></i>
                         </div>
                     </div>
+                    <div class="welcome-text">
+                        <h4>Bienvenido de vuelta</h4>
+                        <p>Inicia sesión para acceder a tu catálogo personal</p>
+                    </div>
+                </div>
+                
+                <div class="sidebar-footer">
+                    <div class="copyright">
+                        © 2024 Catálogo de Productos<br>
+                        Todos los derechos reservados
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Login Content -->
+            <div class="login-content">
+                <div class="login-header">
+                    <h2>Iniciar Sesión</h2>
+                    <p>Ingresa tus credenciales para acceder al sistema</p>
+                </div>
+                
+                <?php if ($error): ?>
+                <div class="error-message">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <?php echo $error; ?>
+                </div>
+                <?php endif; ?>
+                
+                <form method="POST" class="login-form">
+                    <div class="form-group">
+                        <label for="username">Usuario o Email</label>
+                        <div class="input-container">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="username" name="username" placeholder="Ingresa tu usuario o email" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <div class="input-container">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="password" name="password" placeholder="Ingresa tu contraseña" required>
+                            <button type="button" class="toggle-password">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-options">
+                        <div class="remember-me">
+                            <input type="checkbox" id="remember" name="remember">
+                            <label for="remember">Recordarme</label>
+                        </div>
+                        
+                    </div>
+                    
+                    <button type="submit" class="login-button">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Iniciar Sesión
+                    </button>
+                </form>
+                
+                <div class="login-footer">
+                    <div class="separator">
+                        <span>Credenciales</span>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <small style="color: var(--text-muted);">
+                        <strong>Demo:</strong> admin_tech/admin123 o consultor_V/con123
+                    </small>
                 </div>
             </div>
         </div>
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Toggle password visibility
+        document.querySelector('.toggle-password').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const icon = this.querySelector('i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+        
+        // Add shake animation to form on error
+        <?php if ($error): ?>
+        document.querySelector('.login-form').classList.add('shake');
+        <?php endif; ?>
+    </script>
 </body>
 </html>

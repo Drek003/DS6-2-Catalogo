@@ -53,7 +53,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Crear Categoría - Catálogo de Productos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="../../assets/css/styles.css" rel="stylesheet">
     <link href="../../assets/css/custom.css" rel="stylesheet">
+    <link href="../../assets/css/catg.css" rel="stylesheet">
+    <link href="../../assets/css/bootstrap-dark.css" rel="stylesheet">
+    <style>body {overflow-y: auto !important;}</style>
 </head>
 <body>
     <?php include '../../includes/nav.php'; ?>

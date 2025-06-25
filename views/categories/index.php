@@ -28,7 +28,11 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>Categorías - Catálogo de Productos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="../../assets/css/styles.css" rel="stylesheet">
     <link href="../../assets/css/custom.css" rel="stylesheet">
+    <link href="../../assets/css/catg.css" rel="stylesheet">
+    <link href="../../assets/css/bootstrap-dark.css" rel="stylesheet">
+    <style>body {overflow-y: auto !important;}</style>
 </head>
 <body>
     <?php include '../../includes/nav.php'; ?>
@@ -68,7 +72,7 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="row g-3">
                     <?php foreach ($categories as $category): ?>
                     <div class="col-md-6 col-lg-4">
-                        <div class="card h-100">
+                        <div class="card h-100 category-card-link" style="cursor:pointer;" onclick="window.location.href='../products/index.php?category=<?php echo $category['id']; ?>'">
                             <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
                                 <?php if ($category['image']): ?>
                                 <img src="<?php echo htmlspecialchars($category['image']); ?>" 
@@ -95,24 +99,15 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <div class="card-footer">
                                 <?php if (isAdmin()): ?>
                                 <div class="btn-group w-100" role="group">
-                                    <a href="../products/index.php?category=<?php echo $category['id']; ?>" 
-                                       class="btn btn-primary">
-                                        <i class="fas fa-eye"></i> Ver Productos
-                                    </a>
                                     <a href="edit.php?id=<?php echo $category['id']; ?>" 
                                        class="btn btn-warning">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <button class="btn btn-danger" 
-                                            onclick="deleteCategory(<?php echo $category['id']; ?>, '<?php echo htmlspecialchars($category['name']); ?>')">
+                                            onclick="event.stopPropagation();deleteCategory(<?php echo $category['id']; ?>, '<?php echo htmlspecialchars($category['name']); ?>')">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </div>
-                                <?php else: ?>
-                                <a href="../products/index.php?category=<?php echo $category['id']; ?>" 
-                                   class="btn btn-primary w-100">
-                                    <i class="fas fa-eye"></i> Ver Productos (<?php echo $category['product_count']; ?>)
-                                </a>
                                 <?php endif; ?>
                             </div>
                         </div>

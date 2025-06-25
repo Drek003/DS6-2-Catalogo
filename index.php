@@ -39,7 +39,10 @@ $recent_products = $recent_stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>Catálogo de Productos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="assets/css/styles.css" rel="stylesheet">
     <link href="assets/css/custom.css" rel="stylesheet">
+    <link href="assets/css/catg.css" rel="stylesheet">
+    <link href="assets/css/bootstrap-dark.css" rel="stylesheet">
 </head>
 <body>
     <?php include 'includes/nav.php'; ?>
@@ -167,7 +170,7 @@ $recent_products = $recent_stmt->fetchAll(PDO::FETCH_ASSOC);
                         <div class="row g-3">
                             <?php foreach ($recent_products as $product): ?>
                             <div class="col-md-6 col-lg-4 col-xl-2">
-                                <div class="card h-100">
+                                <div class="card h-100 product-card-link" style="cursor:pointer;" onclick="window.location.href='views/products/show.php?id=<?php echo $product['id']; ?>'">
                                     <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 120px;">
                                         <?php if ($product['image']): ?>
                                         <img src="<?php echo htmlspecialchars($product['image']); ?>" 
@@ -184,12 +187,6 @@ $recent_products = $recent_stmt->fetchAll(PDO::FETCH_ASSOC);
                                         <?php if ($product['category_name']): ?>
                                         <span class="badge bg-secondary small"><?php echo htmlspecialchars($product['category_name']); ?></span>
                                         <?php endif; ?>
-                                    </div>
-                                    <div class="card-footer p-2">
-                                        <a href="views/products/show.php?id=<?php echo $product['id']; ?>" 
-                                           class="btn btn-primary btn-sm w-100">
-                                            <i class="fas fa-eye"></i> Ver
-                                        </a>
                                     </div>
                                 </div>
                             </div>

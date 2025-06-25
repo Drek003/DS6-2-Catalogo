@@ -75,7 +75,11 @@ if ($category_filter > 0) {
     <title>Productos - Catálogo de Productos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="../../assets/css/styles.css" rel="stylesheet">
     <link href="../../assets/css/custom.css" rel="stylesheet">
+    <link href="../../assets/css/catg.css" rel="stylesheet">
+    <link href="../../assets/css/bootstrap-dark.css" rel="stylesheet">
+    <style>body {overflow-y: auto !important;}</style>
 </head>
 <body>
     <?php include '../../includes/nav.php'; ?>
@@ -185,7 +189,7 @@ if ($category_filter > 0) {
                 <div class="row g-3">
                     <?php foreach ($products as $product): ?>
                     <div class="col-md-6 col-lg-4 col-xl-3">
-                        <div class="card h-100">
+                        <div class="card h-100 product-card-link" style="cursor:pointer;" onclick="window.location.href='show.php?id=<?php echo $product['id']; ?>'">
                             <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
                                 <?php if ($product['image']): ?>
                                 <img src="<?php echo htmlspecialchars($product['image']); ?>" 
@@ -209,24 +213,15 @@ if ($category_filter > 0) {
                             <div class="card-footer">
                                 <?php if (isAdmin()): ?>
                                 <div class="btn-group w-100" role="group">
-                                    <a href="show.php?id=<?php echo $product['id']; ?>" 
-                                       class="btn btn-primary btn-sm">
-                                        <i class="fas fa-eye"></i> Ver
-                                    </a>
                                     <a href="edit.php?id=<?php echo $product['id']; ?>" 
                                        class="btn btn-warning btn-sm">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <button class="btn btn-danger btn-sm" 
-                                            onclick="deleteProduct(<?php echo $product['id']; ?>, '<?php echo htmlspecialchars($product['name']); ?>')">
+                                            onclick="event.stopPropagation();deleteProduct(<?php echo $product['id']; ?>, '<?php echo htmlspecialchars($product['name']); ?>')">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </div>
-                                <?php else: ?>
-                                <a href="show.php?id=<?php echo $product['id']; ?>" 
-                                   class="btn btn-primary w-100">
-                                    <i class="fas fa-eye"></i> Ver Detalles
-                                </a>
                                 <?php endif; ?>
                             </div>
                         </div>
